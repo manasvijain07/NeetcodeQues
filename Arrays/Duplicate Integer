@@ -37,9 +37,28 @@ class Solution {
 
 ------------------------------------
 Sol 2 - Sorting
-TC
+TC - O(n log n)
+SC - O(n)
 
+class Solution {
+    public boolean hasDuplicate(int[] nums) {
+        int n = nums.length;
 
+        Arrays.sort(nums);
+        int i = 0, j = 1;
+
+        while(j < n)
+        {
+            if(nums[i] == nums[j])
+            {
+                return true;
+            }
+            i++;
+            j++;
+        }
+        return false;
+    }
+}
 
 ---------------------------------
 Sol 3 - Using Set
@@ -63,3 +82,5 @@ class Solution {
         return false;
     }
 }
+
+--------------------------------------
