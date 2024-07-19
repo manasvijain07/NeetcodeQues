@@ -1,0 +1,95 @@
+Anagram Groups
+
+Given an array of strings strs, group all anagrams together into sublists. You may return the output in any order.
+
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+Example 1:
+
+Input: strs = ["act","pots","tops","cat","stop","hat"]
+
+Output: [["hat"],["act", "cat"],["stop", "pots", "tops"]]
+Example 2:
+
+Input: strs = ["x"]
+
+Output: [["x"]]
+Example 3:
+
+Input: strs = [""]
+
+Output: [[""]]
+Constraints:
+
+1 <= strs.length <= 1000.
+0 <= strs[i].length <= 100
+strs[i] is made up of lowercase English letters.
+
+-----------------------------------------
+
+Sol 1 - sorting
+Tc - O(m.n log n)
+SC - O(n)
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        int n = strs.length;
+        
+        List<List<String>> result = new ArrayList<>();
+        
+        if(strs == null || n == 0)
+            return result;
+        
+        HashMap<String, List<String>> map = new HashMap<>();
+        
+        for(String str: strs)
+        {
+            String temp = str;
+            char[] c = str.toCharArray();
+            Arrays.sort(c);
+            String key = String.valueOf(c);
+            if(map.isEmpty() || !map.containsKey(key))
+            {
+                map.put(key, new ArrayList<>());
+            }
+            List<String> strList = map.get(key);
+            strList.add(temp);
+            map.put(key, strList);
+        }
+        
+        for(String key : map.keySet())
+        {
+            result.add(map.get(key));
+        }
+        return result;
+    }
+}
+
+--------------------------------
+
+Sol 2 - optimized without sorting
+TC - O(m .n. 26) = O(m.n)
+SC - O(n)
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for(String s : strs)
+        {
+            int[] count = new int[26];
+            for(char c: s.toCharArray())
+            {
+                count[c - 'a']++;
+            }
+
+            String key = Arrays.toString(count);
+            if(!map.containsKey(key))
+            {
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(s);
+        }
+        return new ArrayList<>(map.values());
+    }
+}
