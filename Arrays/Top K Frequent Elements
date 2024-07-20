@@ -88,4 +88,48 @@ Sol 3 -
 TC - O(n)
 Sc - O(n)
 
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        List<Integer>[] freq = new List[nums.length + 1];
+        int[] res = new int[k];
+
+        for(int i = 0; i < nums.length; i++)
+        {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+
+        for(Map.Entry<Integer, Integer> entry: map.entrySet())
+        {
+            int index = entry.getValue();
+            int val = entry.getKey();
+
+            if(freq[index] == null)
+            {
+                freq[index] = new ArrayList<>();
+            }
+            freq[index].add(val);
+        }
+
+        int j = 0;
+        for(int i = freq.length - 1; i >= 0; i--)
+        {
+            if(freq[i] != null)
+            {
+                List<Integer> vals = freq[i];
+                for(int val : vals)
+                {
+                    if(j >= k)
+                    {
+                        return res;
+                    }
+                    res[j++] = val;
+                }
+            }
+        }
+        return res;
+        
+    }
+}
+
 
