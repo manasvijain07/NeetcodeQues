@@ -23,10 +23,35 @@ It is guaranteed that the answer is unique.
 
 Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 ---------------------------------------------
-
 Sol 1 - 
-Tc - O(n)
-SC - O(1)
+TC - O(n log n)
+SC - O(n)
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int n : nums) {
+            frequencyMap.put(n, frequencyMap.getOrDefault(n, 0) + 1);
+        }
+        
+        List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(frequencyMap.entrySet());
+        
+        Collections.sort(entryList, (a, b) -> b.getValue()- a.getValue());
+        
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) {
+            result[i] = entryList.get(i).getKey();
+        }
+        
+        return result;
+    }
+}
+---------------------------------------
+
+Sol 2 - 
+Tc - O(k log n)
+SC - O(n)
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
@@ -57,3 +82,7 @@ class Solution {
         return res;
     }
 }
+
+--------------------------------------------------
+Sol 2 - 
+TC - O(n)
