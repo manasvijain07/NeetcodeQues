@@ -25,8 +25,8 @@ Follow up: Your algorithm's time complexity must be better than O(n log n), wher
 ---------------------------------------------
 
 Sol 1 - 
-Tc - 
-SC - 
+Tc - O(n)
+SC - O(1)
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
